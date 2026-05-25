@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcfbf8">
+  <title>威力馬國際｜第 23 次表揚大會</title>
+  <style>
+    /* =========================
+       Foundation / Brand Tokens
+       ========================= */
+    :root {
+      --bg: oklch(98.8% 0.004 91.4);
+      --surface: oklch(100% 0 0);
+      --soft: oklch(96.2% 0.010 87.5);
+      --fg: oklch(42.8% 0.041 259.3);
+      --fg-strong: oklch(29% 0.045 259);
+      --muted: oklch(57.1% 0.025 263.1);
+      --border: oklch(86.8% 0.027 87.9);
+      --gold: oklch(54.6% 0.101 85.4);
+      --accent: oklch(54.1% 0.216 14.8);
+      --footer: oklch(24.7% 0.038 260);
+      --footer-muted: oklch(77% 0.018 262);
+      --font-display: "Noto Serif TC", "Source Han Serif TC", "Songti TC", serif;
+      --font-body: "Noto Sans TC", "Source Han Sans TC", "PingFang TC", system-ui, sans-serif;
+      --wrap: min(1320px, calc(100vw - clamp(40px, 9vw, 160px)));
+      --radius: 2px;
+      --ease: cubic-bezier(.2, .65, .2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--fg);
+      background: var(--bg);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      text-rendering: optimizeLegibility;
+    }
+    body.modal-open { overflow: hidden; }
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { border: 0; padding: 0; font: inherit; color: inherit; background: transparent; cursor: pointer; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-display); color: var(--fg-strong); font-weight: 500; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .wrap { width: var(--wrap); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--gold);
+      font-size: .76rem;
+      letter-spacing: .24em;
+      font-weight: 600;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .eyebrow::before {
+      content: "";
+      display: block;
+      width: 34px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .fine-rule { height: 1px; background: var(--border); }
+    .meta {
+      color: var(--muted);
+      font-size: .82rem;
+      letter-spacing: .12em;
+      font-variant-numeric: tabular-nums;
+    }
+    .section {
+      position: relative;
+      padding-block: clamp(70px, 10vw, 142px);
+    }
+    .section.white { background: var(--surface); }
+    .section.soft { background: var(--soft); }
+    .section-head {
+      display: grid;
+      grid-template-columns: clamp(96px, 12vw, 178px) 1fr;
+      gap: clamp(20px, 5vw, 74px);
+      margin-bottom: clamp(36px, 5.4vw, 72px);
+      align-items: start;
+    }
+    .number {
+      color: var(--border);
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 10vw, 8.6rem);
+      letter-spacing: -.08em;
+      line-height: .72;
+    }
+    .section-intro h2 {
+      margin-block: 18px 12px;
+      font-size: clamp(2rem, 3.35vw, 3.05rem);
+      line-height: 1.28;
+      letter-spacing: .04em;
+    }
+    .section-intro p { max-width: 590px; color: var(--muted); }
+
+    /* Navigation */
+    .masthead {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      background: color-mix(in oklch, var(--bg) 91%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid color-mix(in oklch, var(--border) 82%, transparent);
+    }
+    .masthead-row {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .brand {
+      flex: none;
+      font-family: var(--font-display);
+      color: var(--fg-strong);
+      font-size: 1.02rem;
+      letter-spacing: .16em;
+    }
+    .nav-scroll {
+      display: flex;
+      gap: clamp(22px, 3vw, 42px);
+      overflow-x: auto;
+      scrollbar-width: none;
+      white-space: nowrap;
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    .nav-scroll a {
+      position: relative;
+      color: var(--muted);
+      padding-block: 25px 22px;
+      font-size: .82rem;
+      letter-spacing: .12em;
+      transition: color .3s var(--ease);
+    }
+    .nav-scroll a:hover, .nav-scroll a[aria-current="true"] { color: var(--gold); }
+    .nav-scroll a[aria-current="true"]::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* Hero */
+    .hero {
+      padding-block: clamp(52px, 8vw, 105px) clamp(78px, 12vw, 156px);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(350px, .88fr) minmax(430px, 1.08fr);
+      gap: clamp(34px, 6vw, 86px);
+      align-items: end;
+    }
+    .hero-copy .eyebrow { margin-bottom: clamp(30px, 5vw, 58px); }
+    .hero h1 {
+      font-size: clamp(3.25rem, 6.9vw, 6.25rem);
+      line-height: 1.16;
+      letter-spacing: .08em;
+    }
+    .hero h1 span { display: block; }
+    .hero-subtitle {
+      max-width: 390px;
+      margin-block: clamp(28px, 4vw, 52px) 0;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      font-size: clamp(1rem, 1.3vw, 1.1rem);
+      letter-spacing: .28em;
+      color: var(--gold);
+    }
+    .hero-date {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      margin-top: clamp(40px, 6vw, 70px);
+      color: var(--fg);
+      font-size: 1.06rem;
+      letter-spacing: .18em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-date::before { content: ""; width: 46px; height: 1px; background: var(--gold); }
+    .media-zoom {
+      overflow: hidden;
+      background: var(--soft);
+    }
+    .media-zoom img {
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1);
+      filter: saturate(.84) contrast(1.02);
+      transition: transform 7s var(--ease), filter 7s var(--ease);
+    }
+    .media-zoom:hover img {
+      transform: scale(1.075);
+      filter: saturate(.92) contrast(1.045);
+    }
+    .hero-photo { min-height: clamp(470px, 53vw, 700px); }
+    figcaption {
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: .76rem;
+      letter-spacing: .14em;
+    }
+
+    /* Spirit */
+    .spirit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px, 3vw, 38px);
+    }
+    .spirit-card {
+      padding: clamp(26px, 3vw, 38px) 0 0;
+      border-top: 1px solid var(--gold);
+    }
+    .spirit-card .character {
+      margin-bottom: 28px;
+      color: color-mix(in oklch, var(--gold) 92%, var(--fg));
+      font-family: var(--font-display);
+      font-size: clamp(3.6rem, 6vw, 5.2rem);
+      line-height: 1;
+    }
+    .spirit-card h3 { margin-bottom: 14px; font-size: clamp(1.25rem, 2vw, 1.55rem); letter-spacing: .1em; }
+    .spirit-card p { color: var(--muted); font-size: .96rem; }
+
+    /* Rankings */
+    .recognition {
+      container-type: inline-size;
+    }
+    .ranking-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(20px, 3vw, 36px);
+    }
+    .learning-groups {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(14px, 2vw, 22px);
+    }
+    .rank-panel {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: clamp(22px, 3vw, 34px);
+    }
+    .rank-panel h3 {
+      min-height: 3.2em;
+      margin-bottom: 26px;
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.3vw, 1.16rem);
+      font-weight: 500;
+      letter-spacing: .06em;
+      line-height: 1.6;
+    }
+    .rank-list { list-style: none; padding: 0; margin: 0; }
+    .rank-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding-block: 16px;
+      border-top: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .rank {
+      color: var(--gold);
+      font-size: .78rem;
+      letter-spacing: .18em;
+      font-weight: 650;
+    }
+    .team-name { color: var(--fg-strong); font-size: .96rem; }
+    .rank-note { display: block; margin-top: 3px; color: var(--muted); font-size: .8rem; }
+
+    /* Diamond certification */
+    .diamond-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px, 3vw, 34px);
+    }
+    .diamond-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid color-mix(in oklch, var(--gold) 44%, var(--border));
+      padding: clamp(12px, 1.4vw, 16px);
+    }
+    .diamond-photo { aspect-ratio: 4 / 5; margin-bottom: clamp(22px, 3vw, 30px); }
+    .diamond-copy { padding: 0 clamp(10px, 1.4vw, 18px) clamp(16px, 2vw, 26px); }
+    .diamond-label {
+      margin-bottom: 12px;
+      color: var(--gold);
+      font-size: .72rem;
+      letter-spacing: .25em;
+      font-weight: 650;
+    }
+    .diamond-copy h3 { font-size: clamp(1.42rem, 2vw, 1.72rem); margin-bottom: 12px; letter-spacing: .08em; }
+    .diamond-copy p { color: var(--muted); font-size: .92rem; }
+
+    /* Final stage */
+    .final-grid {
+      display: grid;
+      grid-template-columns: .83fr 1.17fr;
+      gap: clamp(24px, 4vw, 50px);
+      align-items: start;
+    }
+    .final-copy {
+      border-top: 1px solid var(--gold);
+      padding-top: clamp(24px, 3vw, 35px);
+    }
+    .final-copy h3 { margin-bottom: 18px; font-size: clamp(1.5rem, 2.4vw, 2.05rem); letter-spacing: .05em; }
+    .final-copy p { color: var(--muted); margin-bottom: 34px; }
+    .stage-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .stage-tags span {
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      color: var(--gold);
+      font-size: .76rem;
+      letter-spacing: .14em;
+    }
+    .stage-photos {
+      display: grid;
+      grid-template-columns: 1.25fr .8fr;
+      gap: 12px;
+    }
+    .stage-photos .tall { grid-row: span 2; min-height: 540px; }
+    .stage-photos .side { min-height: 264px; }
+
+    /* Video */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1.14fr .86fr;
+      gap: clamp(20px, 3vw, 34px);
+    }
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+    }
+    .video-thumb::after {
+      content: "PLAY";
+      position: absolute;
+      left: clamp(20px, 4vw, 34px);
+      bottom: clamp(20px, 4vw, 32px);
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      border: 1px solid color-mix(in oklch, var(--surface) 78%, transparent);
+      border-radius: 50%;
+      color: var(--surface);
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      background: color-mix(in oklch, var(--footer) 38%, transparent);
+      transition: background .3s var(--ease);
+    }
+    .video-card:hover .video-thumb::after { background: var(--gold); }
+    .video-card h3 {
+      margin-block: 20px 7px;
+      font-size: clamp(1.25rem, 2vw, 1.62rem);
+      letter-spacing: .05em;
+    }
+    .video-card p { color: var(--muted); font-size: .9rem; }
+
+    /* Photo gallery */
+    .gallery-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: clamp(26px, 4vw, 42px);
+    }
+    .filter {
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .8rem;
+      letter-spacing: .12em;
+      transition: color .24s var(--ease), background .24s var(--ease), border-color .24s var(--ease);
+    }
+    .filter[aria-pressed="true"] {
+      color: var(--surface);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .magazine-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: clamp(126px, 14vw, 204px);
+      gap: clamp(10px, 1.2vw, 15px);
+    }
+    .gallery-item {
+      position: relative;
+      min-width: 0;
+      transition: opacity .24s var(--ease);
+    }
+    .gallery-item[hidden] { display: none; }
+    .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 3; }
+    .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 2; }
+    .gallery-item:nth-child(3) { grid-column: span 3; grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 4; grid-row: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 4; grid-row: span 2; }
+    .gallery-item:nth-child(6) { grid-column: span 4; grid-row: span 2; }
+    .gallery-item .media-zoom { height: 100%; }
+    .gallery-label {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 28px 18px 14px;
+      color: var(--surface);
+      font-size: .78rem;
+      letter-spacing: .14em;
+      background: linear-gradient(transparent, color-mix(in oklch, var(--footer) 62%, transparent));
+    }
+
+    /* Footer preview */
+    .footer {
+      padding-block: clamp(72px, 9vw, 122px) clamp(30px, 5vw, 58px);
+      background: var(--footer);
+      color: var(--surface);
+    }
+    .footer .number { color: color-mix(in oklch, var(--gold) 30%, var(--footer)); }
+    .footer .section-intro h2 { color: var(--surface); }
+    .footer .section-intro p { color: var(--footer-muted); }
+    .next-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: clamp(54px, 7vw, 85px);
+      padding: clamp(30px, 5vw, 60px);
+      border: 1px solid color-mix(in oklch, var(--gold) 66%, var(--footer));
+      background: color-mix(in oklch, var(--footer) 95%, var(--surface));
+    }
+    .next-card .eyebrow { margin-bottom: clamp(28px, 4vw, 42px); }
+    .next-card h3 {
+      color: var(--surface);
+      margin-bottom: 15px;
+      font-size: clamp(2rem, 4.1vw, 3.85rem);
+      letter-spacing: .08em;
+    }
+    .next-date {
+      color: color-mix(in oklch, var(--gold) 82%, var(--surface));
+      font-size: clamp(1.1rem, 2vw, 1.38rem);
+      letter-spacing: .22em;
+      font-variant-numeric: tabular-nums;
+    }
+    .notice-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 45px;
+      padding-inline: 19px;
+      border: 1px solid color-mix(in oklch, var(--accent) 54%, var(--footer));
+      color: oklch(90% 0.06 12);
+      font-size: .76rem;
+      letter-spacing: .25em;
+      white-space: nowrap;
+    }
+    .footer-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 25px;
+      border-top: 1px solid color-mix(in oklch, var(--gold) 40%, var(--footer));
+      color: var(--footer-muted);
+      font-size: .76rem;
+      letter-spacing: .16em;
+    }
+
+    /* Modal interaction */
+    .dialog-backdrop {
+      position: fixed;
+      z-index: 30;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: color-mix(in oklch, var(--footer) 74%, transparent);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s var(--ease);
+    }
+    .dialog-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    .dialog {
+      width: min(600px, 100%);
+      background: var(--surface);
+      padding: clamp(28px, 5vw, 48px);
+      transform: translateY(14px);
+      transition: transform .25s var(--ease);
+    }
+    .dialog-backdrop.is-open .dialog { transform: translateY(0); }
+    .dialog h2 { margin-block: 21px 12px; font-size: clamp(1.7rem, 3vw, 2.2rem); }
+    .dialog p { color: var(--muted); margin-bottom: 32px; }
+    .dialog-actions { display: flex; justify-content: flex-end; }
+    .dialog-close {
+      min-height: 45px;
+      padding: 10px 22px;
+      color: var(--surface);
+      background: var(--fg);
+      letter-spacing: .16em;
+      font-size: .78rem;
+    }
+
+    /* Responsive contract */
+    @container (max-width: 820px) {
+      .ranking-groups, .learning-groups { grid-template-columns: 1fr; }
+      .rank-panel h3 { min-height: 0; }
+    }
+    @media (max-width: 1120px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo { min-height: clamp(370px, 58vw, 580px); }
+      .learning-groups { grid-template-columns: repeat(2, 1fr); }
+      .final-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .masthead-row { height: auto; flex-direction: column; align-items: flex-start; gap: 5px; padding-top: 18px; }
+      .nav-scroll { width: calc(100vw - clamp(40px, 9vw, 160px)); }
+      .nav-scroll a { padding-block: 15px 17px; }
+      .section-head { grid-template-columns: 1fr; gap: 25px; }
+      .spirit-grid, .diamond-grid, .video-grid { grid-template-columns: 1fr; }
+      .diamond-card { max-width: 540px; }
+      .stage-photos .tall { min-height: clamp(360px, 68vw, 500px); }
+      .magazine-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: clamp(165px, 36vw, 265px); }
+      .gallery-item:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
+      .next-card { grid-template-columns: 1fr; align-items: start; }
+    }
+    @media (max-width: 600px) {
+      :root { --wrap: calc(100vw - 40px); }
+      .hero h1 { letter-spacing: .04em; }
+      .hero-date { font-size: .91rem; gap: 14px; }
+      .spirit-grid, .ranking-groups, .learning-groups { grid-template-columns: 1fr; }
+      .stage-photos { grid-template-columns: 1fr; }
+      .stage-photos .tall, .stage-photos .side { min-height: 300px; }
+      .magazine-grid { display: flex; flex-direction: column; gap: 12px; }
+      .gallery-item .media-zoom { height: min(74vw, 330px); }
+      .gallery-item:first-child .media-zoom { height: min(100vw, 430px); }
+      .footer-line { display: block; }
+      .footer-line span:last-child { display: block; margin-top: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap masthead-row">
+      <a class="brand" href="#hero" aria-label="威力馬國際第 23 次表揚大會首頁">威力馬國際</a>
+      <nav class="nav-scroll" aria-label="專題頁區段">
+        <a href="#spirit">大會精神</a>
+        <a href="#recognition">團隊表揚</a>
+        <a href="#learning">學習表揚</a>
+        <a href="#diamond">鑽石授證</a>
+        <a href="#final">激密之星</a>
+        <a href="#media">會後影音</a>
+        <a href="#gallery">照片紀錄</a>
+        <a href="#next">下一場預告</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero" aria-label="主視覺公布">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">01 / Recognition Assembly</span>
+          <h1><span>賦能創勢</span><span>馳騁天際</span></h1>
+          <p class="hero-subtitle">第 23 次表揚大會</p>
+          <p class="hero-date">2026 / 03 / 07</p>
+        </div>
+        <figure>
+          <div class="media-zoom hero-photo">
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&amp;fit=crop&amp;w=1280&amp;q=80" alt="典雅會場中與會者相聚的活動紀錄示意影像">
+          </div>
+          <figcaption>活動紀錄影像方向示意｜正式照片可於發布前替換</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section white" id="spirit">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">02</p>
+          <div class="section-intro">
+            <span class="eyebrow">Assembly Spirit</span>
+            <h2>以同行的成果，開啟下一段航程</h2>
+            <p>這一晚記錄團隊在服務、學習與陪伴之中的實踐。表揚不是句點，而是將彼此推向更遠方向的共同承諾。</p>
+          </div>
+        </div>
+        <div class="spirit-grid">
+          <article class="spirit-card">
+            <p class="character">賦能</p>
+            <h3>讓每份能力被看見</h3>
+            <p>由個人的累積成為團隊的支持，肯定持續投入的專業與心意。</p>
+          </article>
+          <article class="spirit-card">
+            <p class="character">創勢</p>
+            <h3>匯聚改變的力量</h3>
+            <p>在服務與學習中形成正向動能，讓成果能被傳承、被延伸。</p>
+          </article>
+          <article class="spirit-card">
+            <p class="character">馳騁</p>
+            <h3>朝更高標準前行</h3>
+            <p>從榮耀時刻再出發，攜手拓展下一次成就的視野與高度。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft recognition" id="recognition">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">03</p>
+          <div class="section-intro">
+            <span class="eyebrow">Team Recognition</span>
+            <h2>團隊表揚</h2>
+            <p>在公益投入與家庭連結中，表揚持續凝聚行動與信任的團隊。本版以匿名稱謂呈現名次結構。</p>
+          </div>
+        </div>
+        <div class="ranking-groups">
+          <article class="rank-panel">
+            <h3>公益團隊表揚</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">公益團隊 A<span class="rank-note">第一名</span></span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">公益團隊 B<span class="rank-note">第二名</span></span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">公益團隊 C<span class="rank-note">第三名</span></span></li>
+            </ol>
+          </article>
+          <article class="rank-panel">
+            <h3>101 通路股東家庭聚會團隊表揚</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">家庭聚會團隊 A<span class="rank-note">第一名</span></span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">家庭聚會團隊 B<span class="rank-note">第二名</span></span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">家庭聚會團隊 C<span class="rank-note">第三名</span></span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white recognition" id="learning">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">04</p>
+          <div class="section-intro">
+            <span class="eyebrow">Learning Progress</span>
+            <h2>學習推進表揚</h2>
+            <p>從現場實作到數位進修，從服務品質到團隊推薦，四項成果共同呈現組織向前的步伐。</p>
+          </div>
+        </div>
+        <div class="learning-groups">
+          <article class="rank-panel">
+            <h3>實境學習</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">實境團隊 A</span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">實境團隊 B</span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">實境團隊 C</span></li>
+            </ol>
+          </article>
+          <article class="rank-panel">
+            <h3>數位學習</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">數位團隊 A</span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">數位團隊 B</span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">數位團隊 C</span></li>
+            </ol>
+          </article>
+          <article class="rank-panel">
+            <h3>VIP 服務</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">服務團隊 A</span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">服務團隊 B</span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">服務團隊 C</span></li>
+            </ol>
+          </article>
+          <article class="rank-panel">
+            <h3>推薦團隊</h3>
+            <ol class="rank-list">
+              <li class="rank-item"><span class="rank">01</span><span class="team-name">推薦團隊 A</span></li>
+              <li class="rank-item"><span class="rank">02</span><span class="team-name">推薦團隊 B</span></li>
+              <li class="rank-item"><span class="rank">03</span><span class="team-name">推薦團隊 C</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="diamond">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">05</p>
+          <div class="section-intro">
+            <span class="eyebrow">Diamond Certification</span>
+            <h2>鑽石授證</h2>
+            <p>獻給以長期投入累積信任、並將成果帶回團隊的三位授證者。人物名稱依需求匿名呈現。</p>
+          </div>
+        </div>
+        <div class="diamond-grid">
+          <article class="diamond-card">
+            <div class="media-zoom diamond-photo"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="鑽石授證者 A 人像示意影像"></div>
+            <div class="diamond-copy">
+              <p class="diamond-label">DIAMOND HONOREE / 01</p>
+              <h3>鑽石授證者 A</h3>
+              <p>以持續服務與團隊傳承，獲頒本屆鑽石授證肯定。</p>
+            </div>
+          </article>
+          <article class="diamond-card">
+            <div class="media-zoom diamond-photo"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="鑽石授證者 B 人像示意影像"></div>
+            <div class="diamond-copy">
+              <p class="diamond-label">DIAMOND HONOREE / 02</p>
+              <h3>鑽石授證者 B</h3>
+              <p>在學習推進與支持夥伴的旅程中，成就穩健榜樣。</p>
+            </div>
+          </article>
+          <article class="diamond-card">
+            <div class="media-zoom diamond-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="鑽石授證者 C 人像示意影像"></div>
+            <div class="diamond-copy">
+              <p class="diamond-label">DIAMOND HONOREE / 03</p>
+              <h3>鑽石授證者 C</h3>
+              <p>以專業與承諾帶動團隊前行，留下值得記錄的里程碑。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="final">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">06</p>
+          <div class="section-intro">
+            <span class="eyebrow">Final Selection</span>
+            <h2>激密之星決選</h2>
+            <p>聚光燈之下，是台前表現與台後累積的共同呈現。決選片段留下每個關鍵時刻的專注與支持。</p>
+          </div>
+        </div>
+        <div class="final-grid">
+          <article class="final-copy">
+            <h3>舞台上的決選時刻</h3>
+            <p>以人物亮相、現場分享與頒發時刻為影像主軸，呈現本屆決選的沉著張力與團隊喝采。</p>
+            <div class="stage-tags" aria-label="決選紀錄分類">
+              <span>人物亮相</span><span>舞台紀錄</span><span>團隊支持</span>
+            </div>
+          </article>
+          <div class="stage-photos">
+            <div class="media-zoom tall"><img src="https://images.unsplash.com/photo-1507502707541-f369a3b18502?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="決選舞台紀錄示意影像"></div>
+            <div class="media-zoom side"><img src="https://images.unsplash.com/photo-1515169067868-5387ec356754?auto=format&amp;fit=crop&amp;w=620&amp;q=80" alt="與會者交流紀錄示意影像"></div>
+            <div class="media-zoom side"><img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&amp;fit=crop&amp;w=620&amp;q=80" alt="會場細節紀錄示意影像"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="media">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">07</p>
+          <div class="section-intro">
+            <span class="eyebrow">Aftermovie</span>
+            <h2>會後影音</h2>
+            <p>透過影像重溫大會現場與授證致詞。片源將於正式發布時置換上線。</p>
+          </div>
+        </div>
+        <div class="video-grid">
+          <button class="video-card" type="button" data-video="花絮影片" aria-label="觀看花絮影片示意">
+            <span class="media-zoom video-thumb"><img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&amp;fit=crop&amp;w=1100&amp;q=80" alt=""></span>
+            <h3>第 23 次表揚大會｜花絮影片</h3>
+            <p>典禮片段、團隊交流與榮耀時刻精選</p>
+          </button>
+          <button class="video-card" type="button" data-video="鑽石授證致詞影片" aria-label="觀看鑽石授證致詞影片示意">
+            <span class="media-zoom video-thumb"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt=""></span>
+            <h3>鑽石授證｜致詞紀錄</h3>
+            <p>授證者分享與團隊傳承片段</p>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="number" aria-hidden="true">08</p>
+          <div class="section-intro">
+            <span class="eyebrow">Event Gallery</span>
+            <h2>照片紀錄</h2>
+            <p>以雜誌式編排收納現場的主視覺、表揚、授證、決選、合影與舞台花絮。</p>
+          </div>
+        </div>
+        <div class="gallery-controls" aria-label="照片分類篩選">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter" type="button" data-filter="honor" aria-pressed="false">表揚 / 授證</button>
+          <button class="filter" type="button" data-filter="stage" aria-pressed="false">舞台 / 決選</button>
+          <button class="filter" type="button" data-filter="people" aria-pressed="false">合影 / 交流</button>
+        </div>
+        <div class="magazine-grid">
+          <figure class="gallery-item" data-category="stage">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&amp;fit=crop&amp;w=1100&amp;q=80" alt="主視覺舞台紀錄示意影像"></div>
+            <figcaption class="gallery-label">主視覺 / 舞台</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="honor">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&amp;fit=crop&amp;w=650&amp;q=80" alt="表揚時刻示意影像"></div>
+            <figcaption class="gallery-label">團隊表揚</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="honor">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&amp;fit=crop&amp;w=650&amp;q=80" alt="授證互動示意影像"></div>
+            <figcaption class="gallery-label">鑽石授證</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="stage">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&amp;fit=crop&amp;w=760&amp;q=80" alt="決選現場示意影像"></div>
+            <figcaption class="gallery-label">激密之星決選</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="people">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=760&amp;q=80" alt="活動合影示意影像"></div>
+            <figcaption class="gallery-label">團隊合影</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="people">
+            <div class="media-zoom"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&amp;fit=crop&amp;w=760&amp;q=80" alt="舞台花絮示意影像"></div>
+            <figcaption class="gallery-label">舞台花絮</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="next">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="number" aria-hidden="true">09</p>
+        <div class="section-intro">
+          <span class="eyebrow">Next Assembly</span>
+          <h2>下一場預告</h2>
+          <p>再次匯聚，共同見證下一段值得記錄的成果。</p>
+        </div>
+      </div>
+      <article class="next-card">
+        <div>
+          <span class="eyebrow">威力馬國際表揚大會</span>
+          <h3>下一場表揚大會</h3>
+          <p class="next-date">2026 / 09 / 05</p>
+        </div>
+        <p class="notice-pill">敬請期待</p>
+      </article>
+      <div class="footer-line">
+        <span>WEILIMA INTERNATIONAL</span>
+        <span>第 23 次表揚大會紀錄專題｜2026 / 03 / 07</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="dialog-backdrop" id="media-dialog" role="presentation" aria-hidden="true" inert>
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-copy">
+      <span class="eyebrow">Video Preview</span>
+      <h2 id="dialog-title">會後影音</h2>
+      <p id="dialog-copy">本頁目前展示影音版位與封面方向；正式片源上線後，可於此處嵌入播放。</p>
+      <div class="dialog-actions">
+        <button class="dialog-close" type="button" id="dialog-close">關閉</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /* Meaningful UI: gallery filtering, video preview modal, active section navigation. */
+    (() => {
+      const filters = document.querySelectorAll(".filter");
+      const galleryItems = document.querySelectorAll(".gallery-item");
+      filters.forEach((button) => {
+        button.addEventListener("click", () => {
+          const category = button.dataset.filter;
+          filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          galleryItems.forEach((item) => {
+            item.hidden = category !== "all" && item.dataset.category !== category;
+          });
+        });
+      });
+
+      const dialog = document.getElementById("media-dialog");
+      const title = document.getElementById("dialog-title");
+      const close = document.getElementById("dialog-close");
+      let previousFocus = null;
+      const dismiss = () => {
+        dialog.classList.remove("is-open");
+        dialog.setAttribute("aria-hidden", "true");
+        dialog.inert = true;
+        document.body.classList.remove("modal-open");
+        if (previousFocus) previousFocus.focus();
+      };
+      document.querySelectorAll("[data-video]").forEach((button) => {
+        button.addEventListener("click", () => {
+          previousFocus = button;
+          title.textContent = button.dataset.video;
+          dialog.classList.add("is-open");
+          dialog.setAttribute("aria-hidden", "false");
+          dialog.inert = false;
+          document.body.classList.add("modal-open");
+          close.focus();
+        });
+      });
+      close.addEventListener("click", dismiss);
+      dialog.addEventListener("click", (event) => { if (event.target === dialog) dismiss(); });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && dialog.classList.contains("is-open")) dismiss();
+      });
+
+      const links = document.querySelectorAll(".nav-scroll a");
+      const observedSections = [...links].map((link) => document.querySelector(link.hash));
+      const marker = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          links.forEach((link) => link.setAttribute("aria-current", String(link.hash === "#" + entry.target.id)));
+        });
+      }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
+      observedSections.forEach((section) => marker.observe(section));
+    })();
+  </script>
+</body>
+</html>
