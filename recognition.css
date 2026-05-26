@@ -770,6 +770,7 @@ p {
     object-position: center;
     display: block;
 }
+
 .diamond-copy {
     padding: 0 clamp(10px, 1.4vw, 18px) clamp(16px, 2vw, 26px);
 }
@@ -789,18 +790,64 @@ p {
 }
 
 .diamond-copy p:not(.diamond-label) {
-    color:#000;
+    color: #000;
     font-size: .92rem;
 }
 
 /* =========================
-   Final Stage
+   Final Selection
    ========================= */
-.final-grid {
+
+.finalist-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(12px, 1.6vw, 18px);
+    margin-top: clamp(34px, 5vw, 60px);
+}
+
+.finalist-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.finalist-photo {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--soft);
+}
+
+.finalist-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.finalist-card p {
+    padding: 14px 12px 15px;
+    border-top: 1px solid var(--border);
+    color: var(--fg-strong);
+    font-family: var(--font-index);
+    font-size: clamp(16px, 1.05vw, 19px);
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.final-feature {
     display: grid;
     grid-template-columns: .83fr 1.17fr;
     gap: clamp(24px, 4vw, 50px);
     align-items: start;
+}
+
+.final-label {
+    margin-bottom: 12px;
+    color: var(--gold);
+    font-family: var(--font-index);
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
 }
 
 .final-copy {
@@ -810,7 +857,7 @@ p {
 
 .final-copy h3 {
     margin-bottom: 18px;
-    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+    font-size: clamp(2rem, 3vw, 2.5rem);
     letter-spacing: .05em;
 }
 
@@ -827,9 +874,9 @@ p {
 
 .stage-tags span {
     border: 1px solid var(--border);
-    padding: 9px 14px;
+    padding: 9px 15px;
     color: var(--gold);
-    font-size: .76rem;
+    font-size: .90rem;
     letter-spacing: .14em;
 }
 
@@ -837,6 +884,26 @@ p {
     display: grid;
     grid-template-columns: 1.25fr .8fr;
     gap: 12px;
+}
+
+.stage-photos-single {
+    display: block;
+}
+
+.stage-photos-single .final-main-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: auto;
+    border: 1px solid var(--border);
+    background: var(--soft);
+}
+
+.stage-photos-single .final-main-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
 }
 
 .stage-photos .tall {
@@ -1150,8 +1217,26 @@ p {
 }
 
 @media (max-width: 900px) {
+
+    .final-feature {
+        grid-template-columns: 1fr;
+    }
+
+    .finalist-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .learning-awards {
         grid-template-columns: 1fr;
+    }
+
+    .team-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .team-feature-card {
+        max-width: 720px;
+        margin-inline: auto;
     }
 
     .best-team-card {
@@ -1288,7 +1373,20 @@ p {
 
 @media (max-width: 600px) {
 
-    root {
+    .finalist-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stage-photos {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-photos .tall,
+    .stage-photos .side {
+        min-height: 300px;
+    }
+
+    .root {
         --wrap: calc(100vw - 40px);
     }
 
@@ -1397,6 +1495,25 @@ p {
     .learning-groups {
         grid-template-columns: 1fr;
     }
+
+    .team-feature-copy {
+        padding: 22px;
+    }
+
+    .team-feature-image {
+        aspect-ratio: 1 / 1;
+    }
+
+    .team-feature-image img {
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .team-feature-copy h3 {
+        font-size: clamp(24px, 8vw, 34px);
+    }
+
+
 
     /* =========================
        Later Sections
