@@ -17,6 +17,32 @@
     });
   });
 
+  const spiritCarousel = document.querySelector("[data-spirit-carousel]");
+
+if (spiritCarousel) {
+  const track = spiritCarousel.querySelector(".spirit-carousel-track");
+  const prev = spiritCarousel.querySelector(".is-prev");
+  const next = spiritCarousel.querySelector(".is-next");
+
+  const scrollCarousel = (direction) => {
+    if (!track) return;
+
+    const amount = track.clientWidth * 0.72;
+
+    track.scrollBy({
+      left: direction * amount,
+      behavior: "smooth",
+    });
+  };
+
+  if (prev) {
+    prev.addEventListener("click", () => scrollCarousel(-1));
+  }
+
+  if (next) {
+    next.addEventListener("click", () => scrollCarousel(1));
+  }
+}
   const dialog = document.getElementById("media-dialog");
   const title = document.getElementById("dialog-title");
   const close = document.getElementById("dialog-close");
