@@ -57,19 +57,31 @@
     }
   });
 
+  const nav = document.querySelector(".nav-scroll");
   const links = document.querySelectorAll(".nav-scroll a");
-  const observedSections = [...links].map((link) => document.querySelector(link.hash));
+  const observedSections = [...links]
+    .map((link) => document.querySelector(link.hash))
+    .filter(Boolean);
 
   const marker = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
 
+      const activeLink = [...links].find(
+        (link) => link.hash === `#${entry.target.id}`
+      );
+
       links.forEach((link) => {
-        link.setAttribute(
-          "aria-current",
-          String(link.hash === "#" + entry.target.id)
-        );
+        link.setAttribute("aria-current", String(link === activeLink));
       });
+
+      if (activeLink && nav && window.matchMedia("(max-width: 760px)").matches) {
+        activeLink.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
     });
   }, {
     rootMargin: "-35% 0px -55% 0px",
@@ -77,6 +89,6 @@
   });
 
   observedSections.forEach((section) => {
-    if (section) marker.observe(section);
+    marker.observe(section);
   });
 })();

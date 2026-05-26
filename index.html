@@ -11,40 +11,77 @@
 
 <body>
   <header class="masthead">
-    <div class="wrap masthead-row">
-      <a class="brand" href="#hero" aria-label="威力馬國際第 23 次表揚大會首頁">威力馬國際</a>
+    <div class="masthead-row">
+      <a class="brand" href="#hero" aria-label="回到第 23 次表揚大會主視覺">
+        <span class="brand-mark">
+          <img src="./img/威力馬logo.png" alt="威力馬國際">
+        </span>
+      </a>
+
       <nav class="nav-scroll" aria-label="專題頁區段">
+        <a href="#hero">大會主題</a>
         <a href="#spirit">大會精神</a>
         <a href="#recognition">團隊表揚</a>
         <a href="#learning">學習表揚</a>
         <a href="#diamond">鑽石授證</a>
         <a href="#final">激密之星</a>
-        <a href="#media">會後影音</a>
-        <a href="#gallery">照片紀錄</a>
-        <a href="#next">下一場預告</a>
+        <a href="#media">影音專區</a>
+        <a href="#gallery">活動紀錄</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="hero" aria-label="主視覺公布">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">01 / Recognition Assembly</span>
-          <h1><span>賦能創勢</span><span>馳騁天際</span></h1>
-          <p class="hero-subtitle">第 23 次表揚大會</p>
-          <p class="hero-date">2026 / 03 / 07</p>
-        </div>
-        <figure>
-          <div class="media-zoom hero-photo">
-            <img
-              src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&amp;fit=crop&amp;w=1280&amp;q=80"
-              alt="典雅會場中與會者相聚的活動紀錄示意影像">
-          </div>
-          <figcaption>活動紀錄影像方向示意｜正式照片可於發布前替換</figcaption>
-        </figure>
+    <!-- hero區塊 -->
+<!-- hero區塊 -->
+<section class="hero" id="hero" data-section="01" aria-label="第 23 次表揚大會主視覺">
+  <div>
+    <p class="kicker">01 / 威力馬國際第 23 次表揚大會</p>
+
+    <h1>
+      賦能創勢，<b>馳騁天際。</b>
+    </h1>
+
+    <p class="hero-copy">
+      以行動凝聚團隊能量，以學習推進成長步伐。<br>
+      第 23 次表揚大會，記錄夥伴在服務、推廣與團隊經營中的累積成果，
+      也為下一段前進開啟新的方向。
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn primary" href="#final">激密之星決選</a>
+      <a class="btn" href="#media">觀看影音專區</a>
+    </div>
+  </div>
+
+  <aside class="hero-aside" aria-label="活動核心資訊">
+    <div class="photo-block">
+      <img
+        src="./img/11周年大會_主視覺_確認版-01.jpg"
+        alt="威力馬國際第 23 次表揚大會主視覺：賦能創勢・馳騁天際"
+      >
+    </div>
+
+    <div class="facts">
+      <div class="fact">
+        <b>Date</b>
+        <span>2026.03.07</span>
       </div>
-    </section>
+
+      <div class="fact">
+        <b>Time</b>
+        <span>12：30入場</span>
+      </div>
+
+      <div class="fact">
+        <b>Venue</b>
+        <span>鹿港亞太</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+    <!-- 大會精神區塊 -->
 
     <section class="section white" id="spirit">
       <div class="wrap">
@@ -75,6 +112,8 @@
         </div>
       </div>
     </section>
+
+    <!-- 團隊表揚區塊 -->
 
     <section class="section soft recognition" id="recognition">
       <div class="wrap">
@@ -113,6 +152,7 @@
       </div>
     </section>
 
+    <!-- 學習表揚區塊 -->
     <section class="section white recognition" id="learning">
       <div class="wrap">
         <div class="section-head">
@@ -160,6 +200,7 @@
       </div>
     </section>
 
+    <!-- 鑽石授證區塊 -->
     <section class="section soft" id="diamond">
       <div class="wrap">
         <div class="section-head">
@@ -205,6 +246,7 @@
       </div>
     </section>
 
+    <!-- 激密之星專區 -->
     <section class="section white" id="final">
       <div class="wrap">
         <div class="section-head">
@@ -238,6 +280,8 @@
       </div>
     </section>
 
+
+    <!-- 影音專區 -->
     <section class="section soft" id="media">
       <div class="wrap">
         <div class="section-head">
@@ -267,6 +311,7 @@
       </div>
     </section>
 
+    <!-- 活動紀錄 -->
     <section class="section white" id="gallery">
       <div class="wrap">
         <div class="section-head">
@@ -364,4 +409,5 @@
 
   <script src="./recognition.js"> </script>
 </body>
+
 </html>
