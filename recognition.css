@@ -144,7 +144,7 @@ p {
 .number {
     grid-area: 1 / 1;
     position: sticky;
-    top: 132px;
+    top: 100px;
     align-self: start;
     justify-self: start;
     width: max-content;
@@ -1212,6 +1212,51 @@ p {
 
 
 /* =========================
+   Motion：區塊進場動畫
+   ========================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity .8s var(--ease),
+        transform .8s var(--ease);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 卡片群組依序出現 */
+.reveal-list>* {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity .72s var(--ease),
+        transform .72s var(--ease);
+    transition-delay: calc(var(--i, 0) * 70ms);
+    will-change: opacity, transform;
+}
+
+.reveal-list.is-visible>* {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 使用者偏好減少動畫時，直接顯示 */
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal,
+    .reveal-list>* {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+
+/* =========================
    RWD 1120px：主視覺由左右欄改為上下排列
    ========================= */
 @media (max-width: 1120px) {
@@ -1382,7 +1427,7 @@ p {
     }
 
     .section,
-.footer {
+    .footer {
         overflow-x: hidden;
     }
 
@@ -1420,7 +1465,7 @@ p {
         letter-spacing: 0.02em;
     }
 
-    .footer .section-intro > p {
+    .footer .section-intro>p {
         margin-top: 18px;
         font-size: 15px;
         line-height: 1.9;
@@ -1474,7 +1519,7 @@ p {
         line-height: 1.8;
     }
 
-    .footer-copy p + p {
+    .footer-copy p+p {
         margin-top: 8px;
     }
 
@@ -1664,15 +1709,15 @@ p {
     }
 
     /* 錨點滾動定位：桌機與手機分開處理 */
-@media (min-width: 761px) {
-    section[id] {
-        scroll-margin-top: 0;
+    @media (min-width: 761px) {
+        section[id] {
+            scroll-margin-top: 0;
+        }
     }
-}
 
-@media (max-width: 760px) {
-    section[id] {
-        scroll-margin-top: 100px;
+    @media (max-width: 760px) {
+        section[id] {
+            scroll-margin-top: 100px;
+        }
     }
-}
 }
