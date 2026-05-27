@@ -6,3 +6,4 @@ dist/
 desktop.ini
 .DS_Store
 .vscode/
+firebase-debug.log
