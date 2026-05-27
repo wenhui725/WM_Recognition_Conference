@@ -308,7 +308,6 @@ p {
 .btn.accent {
     background: #CE0045;
     color: var(--bg);
-    border: #000;
 }
 
 .btn {
@@ -1224,22 +1223,6 @@ p {
 }
 
 .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 卡片群組依序出現 */
-.reveal-list>* {
-    opacity: 0;
-    transform: translateY(24px);
-    transition:
-        opacity .72s var(--ease),
-        transform .72s var(--ease);
-    transition-delay: calc(var(--i, 0) * 70ms);
-    will-change: opacity, transform;
-}
-
-.reveal-list.is-visible>* {
     opacity: 1;
     transform: translateY(0);
 }

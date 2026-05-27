@@ -19,108 +19,64 @@
 
   const spiritCarousel = document.querySelector("[data-spirit-carousel]");
 
-if (spiritCarousel) {
-  const track = spiritCarousel.querySelector(".spirit-carousel-track");
-  const prev = spiritCarousel.querySelector(".is-prev");
-  const next = spiritCarousel.querySelector(".is-next");
+  if (spiritCarousel) {
+    const track = spiritCarousel.querySelector(".spirit-carousel-track");
+    const prev = spiritCarousel.querySelector(".is-prev");
+    const next = spiritCarousel.querySelector(".is-next");
 
-  const scrollCarousel = (direction) => {
-    if (!track) return;
+    const scrollCarousel = (direction) => {
+      if (!track) return;
 
-    const amount = track.clientWidth * 0.72;
+      track.scrollBy({
+        left: direction * track.clientWidth * 0.72,
+        behavior: "smooth",
+      });
+    };
 
-    track.scrollBy({
-      left: direction * amount,
-      behavior: "smooth",
-    });
-  };
-
-  if (prev) {
-    prev.addEventListener("click", () => scrollCarousel(-1));
+    prev?.addEventListener("click", () => scrollCarousel(-1));
+    next?.addEventListener("click", () => scrollCarousel(1));
   }
-
-  if (next) {
-    next.addEventListener("click", () => scrollCarousel(1));
-  }
-}
-  const dialog = document.getElementById("media-dialog");
-const title = document.getElementById("dialog-title");
-const close = document.getElementById("dialog-close");
-let previousFocus = null;
-
-if (dialog && title && close) {
-  const dismiss = () => {
-    dialog.classList.remove("is-open");
-    dialog.setAttribute("aria-hidden", "true");
-    dialog.inert = true;
-    document.body.classList.remove("modal-open");
-
-    if (previousFocus) previousFocus.focus();
-  };
-
-  document.querySelectorAll("[data-video]").forEach((button) => {
-    button.addEventListener("click", () => {
-      previousFocus = button;
-      title.textContent = button.dataset.video;
-
-      dialog.classList.add("is-open");
-      dialog.setAttribute("aria-hidden", "false");
-      dialog.inert = false;
-      document.body.classList.add("modal-open");
-
-      close.focus();
-    });
-  });
-
-  close.addEventListener("click", dismiss);
-
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) dismiss();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && dialog.classList.contains("is-open")) {
-      dismiss();
-    }
-  });
-}
 
   const nav = document.querySelector(".nav-scroll");
   const links = document.querySelectorAll(".nav-scroll a");
+
   const observedSections = [...links]
     .map((link) => document.querySelector(link.hash))
     .filter(Boolean);
 
-  const marker = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+  const marker = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-      const activeLink = [...links].find(
-        (link) => link.hash === `#${entry.target.id}`
-      );
+        const activeLink = [...links].find(
+          (link) => link.hash === `#${entry.target.id}`
+        );
 
-      links.forEach((link) => {
-        link.setAttribute("aria-current", String(link === activeLink));
-      });
-
-      if (activeLink && nav && window.matchMedia("(max-width: 760px)").matches) {
-        activeLink.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
+        links.forEach((link) => {
+          link.setAttribute("aria-current", String(link === activeLink));
         });
-      }
-    });
-  }, {
-    rootMargin: "-35% 0px -55% 0px",
-    threshold: 0,
-  });
 
-    observedSections.forEach((section) => {
+        if (activeLink && nav && window.matchMedia("(max-width: 760px)").matches) {
+          activeLink.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest",
+          });
+        }
+      });
+    },
+    {
+      rootMargin: "-35% 0px -55% 0px",
+      threshold: 0,
+    }
+  );
+
+  observedSections.forEach((section) => {
     marker.observe(section);
   });
 
-  const revealItems = document.querySelectorAll(".reveal, .reveal-list");
+  const revealItems = document.querySelectorAll(".reveal");
 
   if (revealItems.length) {
     const revealObserver = new IntersectionObserver(
