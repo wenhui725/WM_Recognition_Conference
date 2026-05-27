@@ -1062,6 +1062,11 @@ p {
     grid-row: span 2;
 }
 
+.gallery-item:nth-child(n + 7) {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
 .gallery-item .media-zoom {
     height: 100%;
 }
