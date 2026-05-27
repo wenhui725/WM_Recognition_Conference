@@ -44,10 +44,11 @@ if (spiritCarousel) {
   }
 }
   const dialog = document.getElementById("media-dialog");
-  const title = document.getElementById("dialog-title");
-  const close = document.getElementById("dialog-close");
-  let previousFocus = null;
+const title = document.getElementById("dialog-title");
+const close = document.getElementById("dialog-close");
+let previousFocus = null;
 
+if (dialog && title && close) {
   const dismiss = () => {
     dialog.classList.remove("is-open");
     dialog.setAttribute("aria-hidden", "true");
@@ -82,6 +83,7 @@ if (spiritCarousel) {
       dismiss();
     }
   });
+}
 
   const nav = document.querySelector(".nav-scroll");
   const links = document.querySelectorAll(".nav-scroll a");

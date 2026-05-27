@@ -1,5 +1,5 @@
 /* =========================
-   Foundation / Brand Tokens
+   品牌變數與全域基礎樣式：統一色彩、字體與基本重置
    ========================= */
 :root {
     --bg: #fbfaf6;
@@ -13,9 +13,6 @@
     --border: rgba(139, 107, 27, 0.22);
     --gold: #8B6B1B;
     --accent: #CE0045;
-
-    --footer: #000;
-    --footer-muted: rgba(255, 255, 255, 0.72);
 
     --font-display: "Noto Serif TC", "Source Han Serif TC", "Songti TC", serif;
     --font-body: "Noto Sans TC", "Source Han Sans TC", "PingFang TC", system-ui, sans-serif;
@@ -43,10 +40,6 @@ body {
     line-height: 1.7;
     letter-spacing: 0.02em;
     text-rendering: optimizeLegibility;
-}
-
-body.modal-open {
-    overflow: hidden;
 }
 
 img {
@@ -122,24 +115,12 @@ p {
     background: var(--gold);
 }
 
-.fine-rule {
-    height: 1px;
-    background: var(--border);
-}
-
-.meta {
-    color: var(--muted);
-    font-size: .82rem;
-    letter-spacing: .12em;
-    font-variant-numeric: tabular-nums;
-}
-
 /* =========================
-   Section Base
+   共用區塊標題：控制段落留白與桌機 sticky 編號
    ========================= */
 .section {
     position: relative;
-    padding-block: clamp(70px, 10vw, 142px);
+    padding-block: clamp(50px, 7vw, 90px);
 }
 
 .section.white {
@@ -150,18 +131,30 @@ p {
     background: var(--soft);
 }
 
-.section-head {
+.section>.wrap {
     display: grid;
-    grid-template-columns: clamp(96px, 12vw, 178px) 1fr;
-    gap: clamp(20px, 5vw, 74px);
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.section-head {
+    grid-area: 1 / 1;
     margin-bottom: clamp(36px, 5.4vw, 72px);
-    align-items: start;
 }
 
 .number {
+    grid-area: 1 / 1;
+    position: sticky;
+    top: 132px;
+    align-self: start;
+    justify-self: start;
+    width: max-content;
+    height: max-content;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateX(calc(-100% - clamp(48px, 5vw, 96px)));
     color: #f2a5bd;
     font-family: var(--font-display);
-    font-size: clamp(4.5rem, 10vw, 8.6rem);
+    font-size: clamp(4.5rem, 10vw, 5.6rem);
     letter-spacing: -.08em;
     line-height: .72;
 }
@@ -187,7 +180,7 @@ p {
 }
 
 /* =========================
-   Navigation
+   頂部導覽列：固定導覽、品牌標誌與區段連結狀態
    ========================= */
 .masthead {
     position: sticky;
@@ -265,7 +258,7 @@ p {
 }
 
 /* =========================
-   Hero
+   Hero 主視覺：主標題、行動按鈕與活動資訊卡
    ========================= */
 .hero {
     min-height: 88svh;
@@ -398,7 +391,7 @@ p {
 }
 
 /* =========================
-   Shared Image Hover
+   圖片互動共用效果：卡片影像的裁切與 hover 放大
    ========================= */
 .media-zoom {
     overflow: hidden;
@@ -428,7 +421,7 @@ p {
 
 
 /* =========================
-   Spirit
+   大會精神：歷屆輪播與精神主題卡片
    ========================= */
 .spirit-grid {
     display: grid;
@@ -555,7 +548,7 @@ p {
 }
 
 /* =========================
-   Learning Recognition
+   學習表揚：獎項卡片與年度最佳團隊展示
    ========================= */
 .learning-awards {
     display: grid;
@@ -620,7 +613,6 @@ p {
     line-height: 1.8;
 }
 
-/* 年度最佳團隊：獨立壓軸 */
 .best-team-card {
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr);
@@ -681,7 +673,7 @@ p {
 }
 
 /* =========================
-   Team Recognition
+   團隊表揚：團隊成果圖片與文字卡片
    ========================= */
 .team-showcase {
     display: grid;
@@ -708,7 +700,6 @@ p {
     object-position: center;
 }
 
-/* 101 那張是橫式兩人圖，如果裁切不好，可單獨調整 */
 .team-feature-card:nth-child(2) .team-feature-image img {
     object-position: center top;
 }
@@ -740,7 +731,7 @@ p {
 }
 
 /* =========================
-   Diamond Certification
+   鑽石授證：授證人物卡片與證書影像
    ========================= */
 .diamond-grid {
     display: grid;
@@ -795,7 +786,7 @@ p {
 }
 
 /* =========================
-   Final Selection
+   激密之星：決選主視覺、標籤與入選者名單
    ========================= */
 
 .finalist-grid {
@@ -880,12 +871,6 @@ p {
     letter-spacing: .14em;
 }
 
-.stage-photos {
-    display: grid;
-    grid-template-columns: 1.25fr .8fr;
-    gap: 12px;
-}
-
 .stage-photos-single {
     display: block;
 }
@@ -906,17 +891,8 @@ p {
     display: block;
 }
 
-.stage-photos .tall {
-    grid-row: span 2;
-    min-height: 540px;
-}
-
-.stage-photos .side {
-    min-height: 264px;
-}
-
 /* =========================
-   Video
+   影音專區：影片卡片縮圖與播放提示
    ========================= */
 .video-grid {
     display: grid;
@@ -988,7 +964,7 @@ p {
 }
 
 /* =========================
-   Photo Gallery
+   活動紀錄：照片篩選按鈕與雜誌式圖庫
    ========================= */
 .gallery-controls {
     display: flex;
@@ -1083,138 +1059,160 @@ p {
 }
 
 /* =========================
-   Footer Preview
+   Footer 結尾資訊：活動總結、下次預告與版權列
    ========================= */
+
 .footer {
-    padding-block: clamp(72px, 9vw, 122px) clamp(30px, 5vw, 58px);
-    background: var(--footer);
-    color: var(--surface);
+    background: #000;
+    color: #fff;
 }
 
-.footer .number {
-    color: rgba(139, 107, 27, 0.28);
+.footer .wrap {
+    width: 100%;
 }
+
+.footer .section-head {
+    min-height: 320px;
+    display: grid;
+    align-items: center;
+    margin-bottom: 0;
+    padding: clamp(48px, 6vw, 82px) clamp(24px, 5vw, 76px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer .section-intro {
+    max-width: 900px;
+}
+
+.footer .section-intro .eyebrow {
+    color: rgba(255, 255, 255, 0.72);
+}
+
 
 .footer .section-intro h2 {
-    color: var(--surface);
+    margin-top: 20px;
+    color: #fff;
+    font-size: clamp(30px, 3vw, 60px);
+    line-height: 1.12;
+    font-weight: 400;
 }
 
-.footer .section-intro p {
-    color: var(--footer-muted);
+.footer .section-intro>p {
+    max-width: 720px;
+    margin-top: 22px;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+    font-size: clamp(15px, 1.05vw, 17px);
+    line-height: 1.9;
 }
 
-.next-card {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 30px;
-    margin-bottom: clamp(54px, 7vw, 85px);
-    padding: clamp(30px, 5vw, 60px);
-    border: 1px solid rgba(139, 107, 27, 0.58);
-    background: rgba(255, 255, 255, 0.035);
+.footer .next-card {
+    position: relative;
+    display: block;
+    max-width: 760px;
+    margin: 38px clamp(24px, 5vw, 76px) clamp(48px, 6vw, 82px);
+    padding: 32px 34px;
+    border: 1px solid rgba(211, 179, 106, 0.26);
+    border-radius: 10px;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.04) 100%);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
 }
 
-.next-card .eyebrow {
-    margin-bottom: clamp(28px, 4vw, 42px);
+.footer .next-card .eyebrow {
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: rgba(206, 0, 69, 0.12);
+    color: #f2a5bd;
+    font-size: 12px;
+    letter-spacing: 0.08em;
 }
 
-.next-card h3 {
-    color: var(--surface);
-    margin-bottom: 15px;
-    font-size: clamp(2rem, 4.1vw, 3.85rem);
-    letter-spacing: .08em;
+.footer .next-card .eyebrow::before {
+    display: none;
 }
 
-.next-date {
-    color: #d8c28a;
-    font-size: clamp(1.1rem, 2vw, 1.38rem);
-    letter-spacing: .22em;
-    font-variant-numeric: tabular-nums;
+.footer .next-card h3 {
+    color: #fff;
+    font-size: clamp(28px, 2.5vw, 40px);
+    line-height: 1.25;
+    font-weight: 400;
 }
 
-.notice-pill {
+.footer .next-card p:not(.eyebrow) {
+    max-width: 660px;
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.76);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+    font-size: clamp(15px, 1.05vw, 17px);
+    line-height: 1.9;
+}
+
+.footer .notice-pill {
     display: inline-flex;
     align-items: center;
-    height: 45px;
-    padding-inline: 19px;
+    justify-content: center;
+    width: fit-content;
+    min-height: 42px;
+    margin-top: 28px;
+    padding: 10px 18px;
     border: 1px solid rgba(206, 0, 69, 0.42);
     color: #f2a5bd;
-    font-size: .76rem;
-    letter-spacing: .25em;
+    font-size: 12px;
+    letter-spacing: 0.18em;
     white-space: nowrap;
 }
 
-.footer-line {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding-top: 25px;
-    border-top: 1px solid rgba(139, 107, 27, 0.38);
-    color: var(--footer-muted);
-    font-size: .76rem;
-    letter-spacing: .16em;
-}
-
-/* =========================
-   Modal Interaction
-   ========================= */
-.dialog-backdrop {
-    position: fixed;
-    z-index: 30;
-    inset: 0;
+.footer-bottom {
+    min-height: 112px;
+    padding: 28px clamp(24px, 5vw, 76px);
     display: grid;
-    place-items: center;
-    padding: 22px;
-    background: rgba(47, 55, 70, 0.74);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s var(--ease);
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
 }
 
-.dialog-backdrop.is-open {
-    opacity: 1;
-    pointer-events: auto;
+.footer-copy {
+    grid-column: 2;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 13px;
+    line-height: 1.8;
 }
 
-.dialog {
-    width: min(600px, 100%);
-    background: var(--surface);
-    padding: clamp(28px, 5vw, 48px);
-    transform: translateY(14px);
-    transition: transform .25s var(--ease);
+.footer-copy p {
+    margin: 4px 0;
 }
 
-.dialog-backdrop.is-open .dialog {
-    transform: translateY(0);
+.footer .back-to-top {
+    grid-column: 3;
+    justify-self: end;
+    white-space: nowrap;
+
+    width: auto;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 18px;
+
+    border: 1px solid #CE0045;
+    background: #CE0045;
+    color: #fff;
+
+    font-family: var(--font-index);
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: 0.08em;
 }
 
-.dialog h2 {
-    margin-block: 21px 12px;
-    font-size: clamp(1.7rem, 3vw, 2.2rem);
-}
-
-.dialog p {
-    color: var(--muted);
-    margin-bottom: 32px;
-}
-
-.dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.dialog-close {
-    min-height: 45px;
-    padding: 10px 22px;
-    color: var(--surface);
-    background: var(--fg);
-    letter-spacing: .16em;
-    font-size: .78rem;
-}
 
 /* =========================
-   Responsive Contract
+   RWD 1120px：主視覺由左右欄改為上下排列
    ========================= */
 @media (max-width: 1120px) {
     .hero {
@@ -1230,15 +1228,11 @@ p {
         min-height: clamp(420px, 62vw, 620px);
     }
 
-    .learning-groups {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .final-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
+/* =========================
+   RWD 900px：內容卡片單欄化並停用旁側 sticky 編號
+   ========================= */
 @media (max-width: 900px) {
 
     .final-feature {
@@ -1272,8 +1266,15 @@ p {
     }
 
     .section-head {
-        grid-template-columns: 1fr;
-        gap: 25px;
+        grid-area: auto;
+        margin-bottom: clamp(36px, 5.4vw, 72px);
+    }
+
+    .number {
+        position: static;
+        grid-area: auto;
+        margin-bottom: 25px;
+        transform: none;
     }
 
     .spirit-grid,
@@ -1284,10 +1285,6 @@ p {
 
     .diamond-card {
         max-width: 540px;
-    }
-
-    .stage-photos .tall {
-        min-height: clamp(360px, 68vw, 500px);
     }
 
     .magazine-grid {
@@ -1305,15 +1302,13 @@ p {
         grid-row: span 2;
     }
 
-    .next-card {
-        grid-template-columns: 1fr;
-        align-items: start;
-    }
 }
 
+/* =========================
+   RWD 760px：手機導覽、字級與 footer 閱讀寬度
+   ========================= */
 @media (max-width: 760px) {
 
-    /* Header / Logo / Nav */
     .masthead-row {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -1333,16 +1328,12 @@ p {
         flex-wrap: nowrap;
         justify-content: flex-start;
         gap: 8px;
-
         width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
-
         padding-bottom: 8px;
-
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-
         scrollbar-width: none;
     }
 
@@ -1353,11 +1344,9 @@ p {
     .nav-scroll a {
         flex: 0 0 auto;
         white-space: nowrap;
-
         padding: 9px 12px;
         font-size: 14px;
         line-height: 1;
-
         border: 1px solid transparent;
     }
 
@@ -1378,50 +1367,152 @@ p {
         background: transparent;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-        .nav-scroll a:hover {
-            border-color: #C5A059;
-            color: #9a7a2f;
-            background: var(--surface);
-            font-weight: 500;
-        }
+    .number {
+        width: auto;
+        height: auto;
+        font-size: clamp(3rem, 16vw, 4.5rem);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        margin: 0 0 18px;
     }
 
-    section[id],
-    .hero[id],
-    .footer[id] {
-        scroll-margin-top: 100px;
+    .wrap {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .section,
+.footer {
+        overflow-x: hidden;
+    }
+
+    .footer .wrap {
+        width: 100%;
+    }
+
+    .footer .section-head {
+        min-height: auto;
+        padding: 48px 20px 36px;
+    }
+
+    .footer .section-intro {
+        max-width: 100%;
+    }
+
+    .footer .section-intro .eyebrow {
+        white-space: normal;
+        gap: 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        letter-spacing: 0.14em;
+    }
+
+    .footer .section-intro .eyebrow::before {
+        width: 24px;
+        flex-shrink: 0;
+    }
+
+    .footer .section-intro h2,
+    .footer .footer-h2 {
+        margin-top: 18px;
+        font-size: clamp(28px, 8vw, 36px);
+        line-height: 1.28;
+        letter-spacing: 0.02em;
+    }
+
+    .footer .section-intro > p {
+        margin-top: 18px;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .footer .next-card {
+        margin: 28px 20px 42px;
+        padding: 24px 20px;
+        border-radius: 10px;
+    }
+
+    .footer .next-card .eyebrow {
+        margin-bottom: 14px;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+    }
+
+    .footer .next-card h3 {
+        font-size: clamp(24px, 7vw, 32px);
+        line-height: 1.32;
+        letter-spacing: 0.02em;
+    }
+
+    .footer .next-card p:not(.eyebrow) {
+        margin-top: 14px;
+        font-size: 15px;
+        line-height: 1.85;
+    }
+
+    .footer .notice-pill {
+        margin-top: 22px;
+        min-height: 38px;
+        padding: 9px 14px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+    }
+
+    .footer-bottom {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+        padding: 28px 20px 34px;
+    }
+
+    .footer-copy {
+        grid-column: auto;
+        text-align: left;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+    .footer-copy p + p {
+        margin-top: 8px;
+    }
+
+    .footer .back-to-top {
+        grid-column: auto;
+        justify-self: stretch;
+        width: 100%;
+        min-height: 48px;
+        padding: 14px 18px;
+        font-size: 15px;
     }
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .nav-scroll a:hover {
+        border-color: #C5A059;
+        color: #9a7a2f;
+        background: var(--surface);
+        font-weight: 500;
+    }
+}
+
+
+/* =========================
+   RWD 600px：手機內容密度、圖庫與卡片間距
+   ========================= */
 @media (max-width: 600px) {
 
     .finalist-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .stage-photos {
-        grid-template-columns: 1fr;
-    }
-
-    .stage-photos .tall,
-    .stage-photos .side {
-        min-height: 300px;
-    }
-
-    .root {
+    :root {
         --wrap: calc(100vw - 40px);
     }
 
-    /* =========================
-       Section
-       ========================= */
     .section {
         padding-block: 64px;
-    }
-
-    .section-head {
-        gap: 22px;
     }
 
     .section-intro h2 {
@@ -1434,9 +1525,6 @@ p {
         line-height: 1.8;
     }
 
-    /* =========================
-       Hero
-       ========================= */
     .hero {
         min-height: auto;
         grid-template-columns: 1fr;
@@ -1483,9 +1571,6 @@ p {
         border-bottom: 0;
     }
 
-    /* =========================
-       Spirit
-       ========================= */
     .spirit-archive {
         margin-bottom: 42px;
         padding-block: 28px;
@@ -1513,9 +1598,7 @@ p {
         height: 160px;
     }
 
-    .spirit-grid,
-    .ranking-groups,
-    .learning-groups {
+    .spirit-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1538,18 +1621,6 @@ p {
 
 
 
-    /* =========================
-       Later Sections
-       ========================= */
-    .stage-photos {
-        grid-template-columns: 1fr;
-    }
-
-    .stage-photos .tall,
-    .stage-photos .side {
-        min-height: 300px;
-    }
-
     .magazine-grid {
         display: flex;
         flex-direction: column;
@@ -1562,15 +1633,6 @@ p {
 
     .gallery-item:first-child .media-zoom {
         height: min(100vw, 430px);
-    }
-
-    .footer-line {
-        display: block;
-    }
-
-    .footer-line span:last-child {
-        display: block;
-        margin-top: 9px;
     }
 
     .learning-award-copy,
@@ -1600,4 +1662,17 @@ p {
             transition-duration: .001ms !important;
         }
     }
+
+    /* 錨點滾動定位：桌機與手機分開處理 */
+@media (min-width: 761px) {
+    section[id] {
+        scroll-margin-top: 0;
+    }
+}
+
+@media (max-width: 760px) {
+    section[id] {
+        scroll-margin-top: 100px;
+    }
+}
 }
