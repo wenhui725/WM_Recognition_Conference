@@ -1,0 +1,12 @@
+{
+  "name": "wm-recognition-conference",
+  "private": true,
+  "scripts": {
+    "convert:webp": "node scripts/convert-webp.cjs && node scripts/optimize-webp.cjs",
+    "optimize:webp": "node scripts/optimize-webp.cjs",
+    "build": "node --check recognition.js && node --check scripts/convert-webp.cjs && node --check scripts/optimize-webp.cjs && node --check scripts/verify-assets.cjs && node scripts/verify-assets.cjs"
+  },
+  "dependencies": {
+    "sharp": "^0.34.2"
+  }
+}

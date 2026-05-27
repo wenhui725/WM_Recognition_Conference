@@ -1,5 +1,8 @@
 node_modules/
+img_original_webp_backup/
+Thumbs.db
 dist/
 .env
 desktop.ini
 .DS_Store
+.vscode/
