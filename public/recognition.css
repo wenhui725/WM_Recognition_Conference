@@ -949,8 +949,8 @@ p {
     background: rgba(206, 0, 69, 0.08);
     color: #ce0045;
     font-family: var(--font-index);
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 500;
     letter-spacing: .16em;
     line-height: 1.2;
     text-transform: uppercase;
@@ -975,8 +975,8 @@ p {
     margin-bottom: 12px;
     color: var(--gold);
     font-family: var(--font-index);
-    font-size: clamp(1.08rem, 1.4vw, 1.28rem);
-    font-weight: 700;
+    font-size: clamp(1.5rem, 1.4vw, 1.28rem);
+    font-weight: 600;
     letter-spacing: .12em;
 }
 
