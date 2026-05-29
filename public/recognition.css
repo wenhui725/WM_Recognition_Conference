@@ -186,9 +186,19 @@ p {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgb(255, 255, 255);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px) saturate(1.18);
+    -webkit-backdrop-filter: blur(16px) saturate(1.18);
+    border-bottom: 1px solid #d6d5d5;
+    transition:
+        background 0.28s var(--ease),
+        box-shadow 0.28s var(--ease),
+        border-color 0.28s var(--ease);
+}
+
+.masthead.is-scrolled {
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 10px 28px rgba(47, 55, 70, 0.08);
 }
 
 .masthead-row {
@@ -196,7 +206,7 @@ p {
     grid-template-columns: minmax(160px, 1fr) auto;
     align-items: center;
     gap: 24px;
-    padding: 16px clamp(18px, 4vw, 56px);
+    padding: 30px clamp(18px, 4vw, 56px);
 }
 
 .brand {
@@ -1512,6 +1522,8 @@ p {
     }
 
     .brand {
+        justify-self: center;
+        width: fit-content;
         white-space: normal;
     }
 

@@ -1,6 +1,15 @@
 /* Meaningful UI: gallery filtering, video preview modal, active section navigation. */
 (() => {
   const filters = document.querySelectorAll(".filter");
+  const masthead = document.querySelector(".masthead");
+
+  const updateMastheadState = () => {
+    if (!masthead) return;
+    masthead.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+
+  updateMastheadState();
+  window.addEventListener("scroll", updateMastheadState, { passive: true });
   const galleryItems = document.querySelectorAll(".gallery-item");
 
   filters.forEach((button) => {
